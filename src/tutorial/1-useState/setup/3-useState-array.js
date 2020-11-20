@@ -6,8 +6,10 @@ const UseStateArray = () => {
   console.log(data);
 
   const handleClick = (id) => {
-    const updatedPersons = people.filter((person) => person.id !== id);
-    setPeople(updatedPersons);
+    setPeople((oldPeople) => {
+      const newPeople = oldPeople.filter((person) => person.id !== id);
+      return newPeople;
+    });
   };
 
   const handleClearAll = () => {
@@ -42,10 +44,14 @@ const UseStateArray = () => {
     <main>
       <h1>People in the Department :</h1>
       {personsJSX}
-      <button style={{ margin: "0 auto" }} onClick={handleClearAll}>
-        {" "}
-        clear all
-      </button>
+      {people.length ? (
+        <button style={{ margin: "0 auto" }} onClick={handleClearAll}>
+          {" "}
+          clear all
+        </button>
+      ) : (
+        <p>No More persons to be listed now</p>
+      )}
     </main>
   );
 };
