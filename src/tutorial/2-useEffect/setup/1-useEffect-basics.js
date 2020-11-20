@@ -14,18 +14,19 @@ const UseEffectBasics = () => {
 
   // Dependency List - passing list of arrays as second argument
 
-  // ComponentDidMount
+  // ComponentDidMount: Runs only once
+  /* ---
   useEffect(() => {
     console.log("Initial Render | useEffect() run");
   }, []);
 
-  // ComponentDidUpdate
-  /* ---
+  // ComponentDidUpdate: This useEffect() hook will run as many times as the value gets updated
+   ---*/
   useEffect(() => {
     console.log("useEffect() run");
     document.title = value > 0 ? `Title Updated : ${value}` : ` Default Title`;
   }, [value]);
-  ---*/
+
   const handleClick = () => {
     setValue((prevValue) => {
       return prevValue + 1;
