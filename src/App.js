@@ -7,6 +7,7 @@ import UseStateCounter from "./tutorial/1-useState/setup/5-useState-counter";
 
 /** --- useEffect() --- */
 import UseEffectBasics from "./tutorial/2-useEffect/setup/1-useEffect-basics";
+import UseEffectCleanup from "./tutorial/2-useEffect/setup/2-useEffect-cleanup";
 
 function App() {
   return (
@@ -17,8 +18,10 @@ function App() {
       <UseStateCounter />
       
       <UseStateArray />
-      */}
+     
       <UseEffectBasics />
+       */}
+      <UseEffectCleanup />
     </div>
   );
 }

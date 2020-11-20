@@ -12,7 +12,14 @@ const UseEffectCleanup = () => {
   // scenario is to get the window size each time
   // we will set event listener inside our useEffect for this
   useEffect(() => {
+    console.log("useEffect() as componentDidMount");
     window.addEventListener("resize", getWindowWidth);
+
+    // cleanup return function in useEffect()
+    return () => {
+      console.log("Clean Up");
+      window.removeEventListener("resize", getWindowWidth);
+    };
   });
 
   return (
