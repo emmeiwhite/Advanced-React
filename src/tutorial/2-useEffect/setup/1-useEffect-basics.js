@@ -7,6 +7,7 @@ const UseEffectBasics = () => {
 
   useEffect(() => {
     console.log("useEffect run !!!");
+    document.title = `Title Updated : ${value}`;
   });
 
   const handleClick = () => {
