@@ -4,16 +4,18 @@ import React, { useState } from "react";
 
 const ShortCircuit = () => {
   const [text, setText] = useState("");
-  // const firstValue = text || 'hello world';
-  // const secondValue = text && 'hello world';
 
   return (
     <div>
       <p>{text || "Default Text"}</p>
       <p>{text && "My React Code"}</p>
+
       <button className="btn" onClick={() => setText("Rather Saeb")}>
         Set Text
       </button>
+
+      {/* Terniary Operator */}
+      {text ? "Text is not empty an empty string" : "Text is empty"}
     </div>
   );
 };
