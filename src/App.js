@@ -11,6 +11,7 @@ import UseEffectCleanup from "./tutorial/2-useEffect/setup/2-useEffect-cleanup";
 import UseEffectFetchData from "./tutorial/2-useEffect/setup/3-useEffect-fetch-data";
 import MultipleReturns from "./tutorial/3-conditional-rendering/setup/1-multiple-returns";
 import ShortCircuit from "./tutorial/3-conditional-rendering/setup/2-short-circuit";
+import ShowHide from "./tutorial/3-conditional-rendering/setup/3-show-hide";
 
 function App() {
   return (
@@ -30,8 +31,10 @@ function App() {
       
 
       <MultipleReturns />
-      */}
+      
       <ShortCircuit />
+      */}
+      <ShowHide />
     </div>
   );
 }
