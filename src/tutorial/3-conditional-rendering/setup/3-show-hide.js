@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 // We'll Mount and UnMount a component and clean up our code of UnMounting component
 const ShowHide = () => {
-  const [isMounted, setIsMounted] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
   return (
     <div>
       <button className="btn" onClick={() => setIsMounted(!isMounted)}>
@@ -17,18 +17,19 @@ const ShowHide = () => {
 const Item = () => {
   const [size, setSize] = useState(window.innerWidth);
 
+  const checkSize = () => {
+    setSize(window.innerWidth);
+  };
   useEffect(() => {
-    window.addEventListener("resize", () => {
-      setSize(window.innerWidth);
-    });
-
-    //componentWillUnmount ||size Effects removed
+    window.addEventListener("resize", checkSize);
+    //componentWillUnmount Behaviour
+    // When the component is removed from the DOM this function is invoked
     return () => {
-      window.removeEventListener("resize", () => {
-        setSize(window.innerWidth);
-      });
+      console.log("Component is UnMounted");
+      window.removeEventListener("resize", checkSize);
     };
   }, []);
+
   return (
     <main>
       <h4>Window</h4>
