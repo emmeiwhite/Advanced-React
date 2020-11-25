@@ -1,0 +1,32 @@
+.form-wrapper {
+  width: 500px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 1rem;
+}
+
+.submit-button {
+  width: 57%;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+}
+.persons-details {
+  width: 100%;
+  padding: 1rem;
+}
+.person-card {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 500;
+  text-transform: uppercase;
+  background-color: #1584f3;
+  color: #fff;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border-radius: 0.5rem;
+}
+
+.person-card:hover {
+  cursor: pointer;
+}
