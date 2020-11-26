@@ -7,24 +7,23 @@ import "./controlled-inputs.css";
 // value, onChange
 
 const ControlledInputs = () => {
+  /* --- LET'S Re-Factor our code and use only one function ---*/
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [age, setAge] = useState("");
   const [persons, setPersons] = useState([]);
   const [isFormValid, setIsFormValid] = useState(true);
 
+  // Now we require 1 handler onChange
   const handleSubmit = (e) => {
     e.preventDefault();
     if (name && email && age) {
-      console.log({
-        name,
-        email,
-        age,
-      });
       const person = {
         name,
         email,
         age,
+        id: new Date().getTime().toString(),
       };
       setIsFormValid(true);
       setPersons([...persons, person]);
@@ -72,7 +71,7 @@ const ControlledInputs = () => {
         </div>
 
         {!isFormValid && (
-          <h3 style={{ color: "red" }}>Fill all the form fields </h3>
+          <h4 style={{ color: "red" }}>Fill all the form fields </h4>
         )}
         <div>
           <button
@@ -89,7 +88,7 @@ const ControlledInputs = () => {
         <h3>PERSONS</h3>
         {persons.length > 0 &&
           persons.map((person) => (
-            <div className="person-card">
+            <div className="person-card" key={person.id}>
               <span>{person.name}</span>
               <span>{person.age}</span>
               <span>{person.email}</span>
