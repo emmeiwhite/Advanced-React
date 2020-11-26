@@ -57,8 +57,19 @@ const ControlledInputs = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // setPersons[...persons, person];
+    if (person.age && person.email && person.name) {
+      setPersons([...persons, person]);
+      setIsFormValid(true);
+      setPerson({
+        name: "",
+        age: "",
+        email: "",
+      });
+    } else {
+      setIsFormValid(false);
+    }
   };
+
   return (
     <main className="form-wrapper">
       <form onSubmit={handleSubmit}>
