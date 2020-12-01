@@ -13,9 +13,10 @@ const UseRefBasics = () => {
     console.log(refContainer.current.value);
   };
 
-  // useEffect(()=>{
-  //   refContainer.current.focus()
-  // })
+  // Auto Focus technique
+  useEffect(() => {
+    refContainer.current.focus();
+  });
   return (
     <>
       <form onSubmit={handleSubmit}>
