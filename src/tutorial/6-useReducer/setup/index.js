@@ -16,8 +16,10 @@ const reducer = (state, action) => {
       };
 
     case "NO_VALUE":
+      console.log("WORKING FINE");
       return {
         ...state,
+        isModalOpen: true,
         modalText: "No Value Provided Yet",
       };
 
@@ -54,6 +56,7 @@ const Index = () => {
       dispatch({ type: "ADD_ITEM", payload: person });
       setName("");
     } else {
+      console.log("Busy");
       dispatch({ type: "NO_VALUE" });
     }
   };
