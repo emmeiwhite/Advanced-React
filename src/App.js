@@ -14,6 +14,7 @@ import ShortCircuit from "./tutorial/3-conditional-rendering/setup/2-short-circu
 import ShowHide from "./tutorial/3-conditional-rendering/setup/3-show-hide";
 import ControlledInputs from "./tutorial/4-forms/setup/1-controlled-inputs";
 import UseRefBasics from "./tutorial/5-useRef/setup/1-useRef-basics";
+import Index from "./tutorial/6-useReducer/setup/Index";
 
 function App() {
   return (
@@ -39,8 +40,11 @@ function App() {
       <ShowHide />
      
       <ControlledInputs />
-       */}
+       
       <UseRefBasics />
+      */}
+
+      <Index />
     </div>
   );
 }
