@@ -3,27 +3,27 @@ import Modal from "./Modal";
 import { data } from "../../../data";
 import "./Index.css";
 // reducer function
-
+const reducer = (state, action) => {};
+// Initial State
+const initialState = {
+  people: data,
+  isModalOpen: true,
+  modalText: "Short Modal",
+};
 const Index = () => {
-  const [showModal, setShowModal] = useState(false);
   const [text, setText] = useState("");
-  const [people, setPeople] = useState(data);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (text) {
-      setShowModal(true);
-      const person = { name: text, id: new Date().getTime().toString() };
-      console.log(person);
-      setPeople([...people, person]);
       setText("");
     } else {
-      setShowModal(true);
     }
   };
   return (
     <main>
-      {showModal && <Modal />}
+      {state.isModalOpen && <Modal modalText={state.modalText} />}
 
       <form onSubmit={handleSubmit}>
         <input
@@ -35,8 +35,8 @@ const Index = () => {
       </form>
 
       <ul>
-        {people.length > 0 &&
-          people.map(({ id, name }) => <li key={id}>{name}</li>)}
+        {state.people.length > 0 &&
+          state.people.map(({ id, name }) => <li key={id}>{name}</li>)}
       </ul>
     </main>
   );
