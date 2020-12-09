@@ -7,13 +7,16 @@ import React, { useEffect, useRef } from "react";
 
 const UseRefBasics = () => {
   const refContainer = useRef(null);
+  const divRef = useRef(null);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     console.log(refContainer.current.value);
+    divRef.current.style.color = "red";
   };
 
-  // Auto Focus technique
+  // Auto Focus technique | We do not need 2nd argument since useRef does not trigger a re-render
   useEffect(() => {
     refContainer.current.focus();
   });
@@ -28,6 +31,8 @@ const UseRefBasics = () => {
         />
         <button type="submit">Submit</button>
       </form>
+
+      <div ref={divRef}>This is div 1</div>
     </>
   );
 };
