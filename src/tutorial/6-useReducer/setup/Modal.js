@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import "./Modal.css";
 
 const Modal = ({ modalText, closeModal }) => {
   console.log(modalText);
@@ -8,7 +9,7 @@ const Modal = ({ modalText, closeModal }) => {
       closeModal();
     }, 3000);
   });
-  return <div>{modalText}</div>;
+  return <div className="modal-text">{modalText}</div>;
 };
 
 export default Modal;
