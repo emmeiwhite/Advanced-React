@@ -23,6 +23,9 @@ const reducer = (state, action) => {
         modalText: "No Value Provided Yet",
       };
 
+    case "CLOSE_MODAL":
+      return { ...state, isModalOpen: false };
+
     case "DELETE_ITEM":
       const updatedList = state.people.filter(
         (people) => people.id !== action.payload
@@ -52,11 +55,9 @@ const Index = () => {
     e.preventDefault();
     if (name) {
       const person = { id: new Date().getTime().toString(), name };
-      console.log(person);
       dispatch({ type: "ADD_ITEM", payload: person });
       setName("");
     } else {
-      console.log("Busy");
       dispatch({ type: "NO_VALUE" });
     }
   };
@@ -64,9 +65,16 @@ const Index = () => {
   const handleDelete = (id) => {
     dispatch({ type: "DELETE_ITEM", payload: id });
   };
+
+  // To close modal after some time | A pretty nice trick is to pass this as prop to Modal Component
+  const closeModal = () => {
+    dispatch({ type: "CLOSE_MODAL" });
+  };
   return (
     <main className="main-wrapper">
-      {state.isModalOpen && <Modal modalText={state.modalText} />}
+      {state.isModalOpen && (
+        <Modal closeModal={closeModal} modalText={state.modalText} />
+      )}
 
       <form onSubmit={handleSubmit}>
         <input
