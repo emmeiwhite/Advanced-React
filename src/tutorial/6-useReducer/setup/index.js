@@ -20,6 +20,17 @@ const reducer = (state, action) => {
         ...state,
         modalText: "No Value Provided Yet",
       };
+
+    case "DELETE_ITEM":
+      const updatedList = state.people.filter(
+        (people) => people.id !== action.payload
+      );
+      return {
+        ...state,
+        people: updatedList,
+        modalText: "Item Removed",
+      };
+
     default:
       return state;
   }
@@ -47,8 +58,11 @@ const Index = () => {
     }
   };
 
+  const handleDelete = (id) => {
+    dispatch({ type: "DELETE_ITEM", payload: id });
+  };
   return (
-    <main>
+    <main className="main-wrapper">
       {state.isModalOpen && <Modal modalText={state.modalText} />}
 
       <form onSubmit={handleSubmit}>
@@ -62,7 +76,14 @@ const Index = () => {
 
       <ul>
         {state.people.length > 0 &&
-          state.people.map(({ id, name }) => <li key={id}>{name}</li>)}
+          state.people.map(({ id, name }) => (
+            <li key={id} className="list-item">
+              <p>{name}</p>
+              <p className="delete-item" onClick={() => handleDelete(id)}>
+                Delete
+              </p>
+            </li>
+          ))}
       </ul>
     </main>
   );

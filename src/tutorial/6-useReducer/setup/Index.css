@@ -1,3 +1,29 @@
+.main-wrapper {
+  width: 400px;
+  margin: 0 auto;
+}
 ul {
   list-style: none;
+}
+.list-item,
+form {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0;
+}
+.list-item {
+  margin: 0;
+}
+input {
+  flex: 1;
+  padding: 0.5rem;
+}
+
+button {
+  padding: 0.5rem;
+  cursor: pointer;
+}
+.delete-item {
+  color: red;
+  cursor: pointer;
 }
