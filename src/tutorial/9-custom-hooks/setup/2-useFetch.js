@@ -25,7 +25,7 @@ export const useFetch = () => {
 
   useEffect(() => {
     getProducts();
-  }, []);
+  }, [url]); // Whenever url updates useEffect() is invoked
 
   return { loading, products, error };
 };
