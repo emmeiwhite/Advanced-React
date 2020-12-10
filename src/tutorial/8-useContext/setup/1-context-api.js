@@ -1,5 +1,7 @@
 import React, { useState, useContext, createContext } from "react";
 import { data } from "../../../data";
+import ContextData from "./booklist/contexts/ContextData";
+
 // more components
 // fix - context api, redux (for more complex cases)
 
@@ -22,12 +24,13 @@ const ContextAPI = () => {
   // We have access to the value property in our Provider
   return (
     <PersonContext.Provider value={{ people, removePerson }}>
-      <h3>prop drilling</h3>
+      <h3>Context API | useContext</h3>
       <List />
     </PersonContext.Provider>
   );
 };
 
+// THE LIST COMPONENT
 const List = () => {
   const { people } = useContext(PersonContext);
   return (
@@ -35,6 +38,8 @@ const List = () => {
       {people.map((person) => {
         return <SinglePerson key={person.id} {...person} />;
       })}
+
+      <ContextData />
     </>
   );
 };
@@ -43,10 +48,12 @@ const SinglePerson = ({ id, name }) => {
   const { removePerson } = useContext(PersonContext);
 
   return (
-    <div className="item">
-      <h4>{name}</h4>
-      <button onClick={() => removePerson(id)}>remove</button>
-    </div>
+    <>
+      <div className="item">
+        <h4>{name}</h4>
+        <button onClick={() => removePerson(id)}>remove</button>
+      </div>
+    </>
   );
 };
 
