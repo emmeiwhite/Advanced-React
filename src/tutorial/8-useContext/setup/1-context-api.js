@@ -11,44 +11,40 @@ const PersonContext = createContext();
 // We'll not use Consumer, instead we will consume our context using useContext() Hook
 
 const ContextAPI = () => {
+  /* --- My Global State --- */
   const [people, setPeople] = useState(data);
   const removePerson = (id) => {
     setPeople((people) => {
       return people.filter((person) => person.id !== id);
     });
   };
+
+  // We have access to the value property in our Provider
   return (
-    <PersonContext.Provider value="My Global Value">
+    <PersonContext.Provider value={{ people, removePerson }}>
       <h3>prop drilling</h3>
-      <List people={people} removePerson={removePerson} />
+      <List />
     </PersonContext.Provider>
   );
 };
 
-const List = ({ people, removePerson }) => {
+const List = () => {
+  const { people } = useContext(PersonContext);
   return (
     <>
       {people.map((person) => {
-        return (
-          <SinglePerson
-            key={person.id}
-            {...person}
-            removePerson={removePerson}
-          />
-        );
+        return <SinglePerson key={person.id} {...person} />;
       })}
     </>
   );
 };
 
-const SinglePerson = ({ id, name, removePerson }) => {
-  const value = useContext(PersonContext);
+const SinglePerson = ({ id, name }) => {
+  const { removePerson } = useContext(PersonContext);
 
   return (
     <div className="item">
-      <h4>
-        {name} {value}
-      </h4>
+      <h4>{name}</h4>
       <button onClick={() => removePerson(id)}>remove</button>
     </div>
   );
