@@ -1,7 +1,14 @@
-import React, { useState, useContext } from 'react';
-import { data } from '../../../data';
+import React, { useState, useContext, createContext } from "react";
+import { data } from "../../../data";
 // more components
 // fix - context api, redux (for more complex cases)
+
+// In order to get rid of prop-drilling, we use Context-API as well as Redux. We'll cover Context-API here !!!
+
+const PersonContext = createContext();
+// As soon as we create our context we have access to two components
+// 1) Provider and 2) Consumer
+// We'll not use Consumer, instead we will consume our context using useContext() Hook
 
 const ContextAPI = () => {
   const [people, setPeople] = useState(data);
@@ -11,10 +18,10 @@ const ContextAPI = () => {
     });
   };
   return (
-    <>
+    <PersonContext.Provider value="My Global Value">
       <h3>prop drilling</h3>
       <List people={people} removePerson={removePerson} />
-    </>
+    </PersonContext.Provider>
   );
 };
 
@@ -35,9 +42,13 @@ const List = ({ people, removePerson }) => {
 };
 
 const SinglePerson = ({ id, name, removePerson }) => {
+  const value = useContext(PersonContext);
+
   return (
-    <div className='item'>
-      <h4>{name}</h4>
+    <div className="item">
+      <h4>
+        {name} {value}
+      </h4>
       <button onClick={() => removePerson(id)}>remove</button>
     </div>
   );
