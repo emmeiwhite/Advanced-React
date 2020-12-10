@@ -1,12 +1,14 @@
 import React, { useContext } from "react";
 import Book from "./Book";
 
-import ContextData from "./contexts/ContextData";
+import { BookContext } from "./contexts/ContextData";
 
 export default function BookList() {
+  const { myBooks } = useContext(BookContext);
   return (
     <div>
-      <Book />
+      {myBooks.length > 0 &&
+        myBooks.map((book) => <Book {...book} key={book.id} />)}
     </div>
   );
 }

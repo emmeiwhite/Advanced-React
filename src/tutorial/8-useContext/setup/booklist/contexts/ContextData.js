@@ -12,9 +12,13 @@ const books = [
 
 export default function ContextData({ children }) {
   const [myBooks, setMyBooks] = useState(books);
-
+  const removeBook = (id) => {
+    setMyBooks(() => {
+      return myBooks.filter((book) => book.id !== id);
+    });
+  };
   return (
-    <BookContext.Provider value={{ myBooks }}>
+    <BookContext.Provider value={{ myBooks, removeBook }}>
       <BookList />
     </BookContext.Provider>
   );
