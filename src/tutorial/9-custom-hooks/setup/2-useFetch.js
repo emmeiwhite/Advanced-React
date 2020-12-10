@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
 
-export const useFetch = () => {
+export const useFetch = (url) => {
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(false);
 
   const getProducts = async () => {
-    const response = await fetch(
-      "https://course-api.com/javascript-store-products"
-    );
+    const response = await fetch(url);
     try {
       if (response.status >= 200 && response.status < 300) {
         const products = await response.json();

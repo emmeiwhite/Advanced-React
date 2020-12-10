@@ -7,7 +7,7 @@ const url = "https://course-api.com/javascript-store-products";
 
 /* --- Making use of Custom Hook named useFetch() within FetchExample --- */
 const FetchExample = () => {
-  const { loading, error, products } = useFetch();
+  const { loading, error, products } = useFetch(url);
   if (error) {
     return <h2>Error ...</h2>;
   }
