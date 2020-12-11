@@ -29,6 +29,9 @@ const ReactRouterSetup = () => {
           <People />
         </Route>
 
+        {/* --- url-parameter |  Most Beautiful Thing about React-Router-DOM --- */}
+        <Route path="/person/:id" children={<Person />}></Route>
+
         {/* path="*" always matches. We keep it at the end */}
         <Route path="*">
           <Error />
