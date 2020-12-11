@@ -16,8 +16,18 @@ const Person = () => {
         for the particular ids and get information about the person based on the
         ID coming from People Component
       </span>
+
+      <TestingRouterProps />
     </div>
   );
 };
 
+/* --- Hooks in React-Router-DOM. Version-5.1 onwards ---*/
+
+const TestingRouterProps = () => {
+  const { id } = useParams();
+  console.log("Testing useParams in children of main Route Component");
+  console.log(id);
+  return <h1>Testing Prop</h1>;
+};
 export default Person;
