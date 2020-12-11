@@ -1,0 +1,8 @@
+.navbar-main {
+  display: flex;
+  justify-content: center;
+}
+
+.navbar-main li {
+  margin: 0 1rem;
+}

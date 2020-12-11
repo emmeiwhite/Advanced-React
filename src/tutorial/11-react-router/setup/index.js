@@ -10,9 +10,12 @@ import Person from "./Person";
 // navbar
 import Navbar from "./Navbar";
 
+import "./index.css";
+
 const ReactRouterSetup = () => {
   return (
     <BrowserRouter>
+      <Navbar />
       <Switch>
         <Route exact path="/">
           <Home />
