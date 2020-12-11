@@ -9,6 +9,7 @@ import Error from "./Error";
 import Person from "./Person";
 // navbar
 import Navbar from "./Navbar";
+
 const ReactRouterSetup = () => {
   return (
     <BrowserRouter>
@@ -22,6 +23,11 @@ const ReactRouterSetup = () => {
 
       <Route path="/people">
         <People />
+      </Route>
+
+      {/* path="*" always matches. We keep it at the end */}
+      <Route path="*">
+        <Error />
       </Route>
     </BrowserRouter>
   );
