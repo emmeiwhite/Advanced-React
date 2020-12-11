@@ -3,8 +3,8 @@ import { data } from "../../../data";
 import { Link, useParams } from "react-router-dom";
 
 // Every component rendered based on our React-Router will have access to 3 props. match, location, history
-const Person = ({ match }) => {
-  const id = match.params.id;
+const Person = () => {
+  const { id } = useParams();
   return (
     <div>
       <h2>person</h2>
