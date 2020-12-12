@@ -39,7 +39,7 @@ const TestingRouterProps = () => {
   return (
     <div>
       <p>PROP RECEIVED :{id}</p>
-      <button onClick={handleClick}>My Portfolio</button>
+      <button onClick={handleClick}>People</button>
     </div>
   );
 };
