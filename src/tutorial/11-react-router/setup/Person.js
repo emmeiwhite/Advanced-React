@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { data } from "../../../data";
-import { Link, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 
 // Every component rendered based on our React-Router will have access to 3 props. match, location, history
-const Person = () => {
+const Person = ({ children }) => {
   const { id } = useParams();
+
   return (
     <div>
       <h2>person</h2>
@@ -22,12 +23,24 @@ const Person = () => {
   );
 };
 
-/* --- Hooks in React-Router-DOM. Version-5.1 onwards ---*/
+/* --- Hooks in React-Router-DOM. Version-5.1 onwards 
+  https://reacttraining.com/blog/react-router-v5-1/
+---*/
 
 const TestingRouterProps = () => {
   const { id } = useParams();
   console.log("Testing useParams in children of main Route Component");
   console.log(id);
-  return <h1>Testing Prop</h1>;
+  let history = useHistory();
+
+  const handleClick = () => {
+    history.push("/people");
+  };
+  return (
+    <div>
+      <p>PROP RECEIVED :{id}</p>
+      <button onClick={handleClick}>My Portfolio</button>
+    </div>
+  );
 };
 export default Person;
