@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { useFetch } from "../../9-custom-hooks/setup/2-useFetch";
 import { FaCartArrowDown } from "react-icons/fa";
+import DrumSet from "./DrumSet";
 
 import "./useMemo.css";
 const url = "https://course-api.netlify.app/api/javascript-store-products";
@@ -15,6 +16,19 @@ const testData = [
   { id: 4, data: "data4" },
 ];
 
+// useMemo() hook is different from React.memo(). useMemo() looks for the value while React.memo() as we saw keeps track of the props. SO useMemo() is specifically for the props
+const getMostExpensiveProduct = (products) => {
+  console.log("Takes Time yooHooo");
+  return (
+    products.reduce((total, product) => {
+      let price = product.fields.price;
+      if (price > total) {
+        total = price;
+      }
+      return total;
+    }, 0) / 100
+  );
+};
 const MemoUseMemoUseCallBack = () => {
   const { products, loading, error } = useFetch(url);
   const [count, setCount] = useState(0);
@@ -22,16 +36,17 @@ const MemoUseMemoUseCallBack = () => {
 
   /* ---  updateCart it is passed as prop to the Product component (using prop-drilling) everytime our count value changes and this component gets re-rendered. This updateCart also gets created again and again. And react feels that the updateCart function is changing every time and new updateCart props as drilled down every time. That's why the Product component re-renders | General Rule: "whenever state or prop changes, component is re-rendered"---*/
 
-  const updateCart = () => {
-    setCart((prevCart) => {
-      cart = prevCart + 1;
-      return cart;
-    });
-  };
+  // SOLUTION: Solution is using useCallBack() Hook, It does the same thing to function what React.memo() does to the state value. It says "Has the value of the function changed". If it hasn't changed, well and good. And if it has changed "I will have to re-create that function one more time"
 
-  useEffect(() => {
-    console.log("Parent useEffect()");
-  }, [count]);
+  // SUMMARY: useCallBack() only creates the function (in our case addToCart function) only when the cart value inside this changes. Second argument has to be an array with cart variable.
+
+  const addToCart = useCallback(() => {
+    setCart(cart + 1);
+  }, [cart]);
+
+  // useEffect(() => {
+  //   console.log("Parent useEffect()");
+  // }, [count]);
 
   if (loading) {
     return <h3>Loading ...</h3>;
@@ -43,13 +58,18 @@ const MemoUseMemoUseCallBack = () => {
 
   return (
     <>
-      <h1 className="count">Count : {count}</h1>
+      <h1 classNameName="count">Count : {count}</h1>
+      {/* <DrumSet />
+      <MyForm /> */}
       <button className="btn" onClick={() => setCount(count + 1)}>
         click me
       </button>
-      <ProductList products={products} updateCart={updateCart} />
-      {/* <TestReRender testData={testData} /> */}
 
+      {/* In the below line whenever my state value count get updated, the component gets re-rendered. Which means our getMostExpensiveProduct() function also get's invoked as many times as the state gets updated ... */}
+      <h4>Most Expensive: ${getMostExpensiveProduct(products)}</h4>
+
+      <ProductList products={products} addToCart={addToCart} />
+      {/* <TestReRender testData={testData} /> */}
       <div className="cart">
         <span className="cart__value">{cart}</span>
         <FaCartArrowDown className="cart__icon" />
@@ -65,20 +85,20 @@ Which in turn means that if TestReRender Component also has it's own child compo
 --- */
 
 // Let's do our React.memo() on more time while creating small App
-const ProductList = ({ products, updateCart }) => {
+const ProductList = React.memo(({ products, addToCart }) => {
   useEffect(() => {
     console.log("Product List | useEffect");
   });
   return (
     <div className="productList">
       {products.map((product) => (
-        <Product key={product.id} {...product} updateCart={updateCart} />
+        <Product key={product.id} {...product} addToCart={addToCart} />
       ))}
     </div>
   );
-};
+});
 
-const Product = ({ fields, updateCart }) => {
+const Product = ({ fields, addToCart }) => {
   useEffect(() => {
     console.count("Product Invoked");
   });
@@ -89,7 +109,7 @@ const Product = ({ fields, updateCart }) => {
       <img src={url} alt="product image" className="product__image" />
       <h3>{company || "Company Name"}</h3>
       <h4>$ {price || 3.99}</h4>
-      <button onClick={updateCart}>Add to Cart</button>
+      <button onClick={addToCart}>Add to Cart</button>
     </div>
   );
 };
@@ -131,3 +151,33 @@ const SubChild = () => {
     </div>
   );
 };
+
+class MyForm extends React.Component {
+  state = {
+    todoTitle: "",
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(this.state.todoTitle);
+  };
+  render() {
+    return (
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <input
+            type="text"
+            autocomplete="off"
+            className="form-control"
+            name="todoInput"
+            placeholder="Enter todo"
+            style={{ width: "400px", height: "50px" }}
+            value={this.state.todoTitle}
+            onChange={(e) => this.setState({ todoTitle: e.target.value })}
+          />
+          <input type="submit" value="Submit" id="submitButton" />
+        </form>
+      </div>
+    );
+  }
+}
