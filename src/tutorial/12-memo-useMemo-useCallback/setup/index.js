@@ -29,6 +29,7 @@ const getMostExpensiveProduct = (products) => {
     }, 0) / 100
   );
 };
+
 const MemoUseMemoUseCallBack = () => {
   const { products, loading, error } = useFetch(url);
   const [count, setCount] = useState(0);
@@ -48,6 +49,10 @@ const MemoUseMemoUseCallBack = () => {
   //   console.log("Parent useEffect()");
   // }, [count]);
 
+  const getMostExpensive = useMemo(() => getMostExpensiveProduct(products), [
+    products,
+  ]);
+
   if (loading) {
     return <h3>Loading ...</h3>;
   }
@@ -55,6 +60,8 @@ const MemoUseMemoUseCallBack = () => {
   if (error) {
     return <h3>Error: No data available</h3>;
   }
+
+  // useMemo(): Looks for updates in the value returned from getMostExpensiveProduct()
 
   return (
     <>
@@ -66,7 +73,7 @@ const MemoUseMemoUseCallBack = () => {
       </button>
 
       {/* In the below line whenever my state value count get updated, the component gets re-rendered. Which means our getMostExpensiveProduct() function also get's invoked as many times as the state gets updated ... */}
-      <h4>Most Expensive: ${getMostExpensiveProduct(products)}</h4>
+      <h4>Most Expensive:$ {getMostExpensive}</h4>
 
       <ProductList products={products} addToCart={addToCart} />
       {/* <TestReRender testData={testData} /> */}
