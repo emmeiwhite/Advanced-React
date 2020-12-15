@@ -36,7 +36,7 @@ Which in turn means that if TestReRender Component also has it's own child compo
 --- */
 
 const TestReRender = React.memo(({ testData }) => {
-  // React.memo is a caching technique
+  // React.memo is a caching technique. Until testData prop doesn't change, there will be no re-render of the TestReRender Component anymore. This really is an awesome technique but behind the scenes computer has to do additional computations to do Memoization
   useEffect(() => {
     console.count("Test ReRendered| useEffect");
   });
