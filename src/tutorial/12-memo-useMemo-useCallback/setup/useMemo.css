@@ -4,6 +4,27 @@
   gap: 1rem;
   margin-top: 1rem;
 }
+.count {
+  font-weight: 400;
+  text-transform: uppercase;
+}
+.cart {
+  position: absolute;
+  top: 2rem;
+  right: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.cart .cart__icon {
+  font-size: 2.5rem;
+  color: rgb(73, 166, 233);
+}
+.cart .cart__value {
+  font-size: 2rem;
+}
 
 @media (min-width: 768px) {
   .productList {
