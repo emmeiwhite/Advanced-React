@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { useFetch } from "../../9-custom-hooks/setup/2-useFetch";
 
+import "./useMemo.css";
 const url = "https://course-api.netlify.app/api/javascript-store-products";
 
+const customImage =
+  "https://dl.airtable.com/.attachments/14ac9e946e1a02eb9ce7d632c83f742f/4fd98e64/product-1.jpeg";
 // every time props or state changes, component re-renders, the child inside the component also re-renders
 const testData = [
   { id: 1, data: "data1" },
@@ -45,11 +48,28 @@ Which in turn means that if TestReRender Component also has it's own child compo
 --- */
 
 // Let's do our React.memo() on more time while creating small App
-const ProductList = ({ products }) => products.map((product) => <Product />);
-
-const Product = () => {
-  return <p>single product</p>;
+const ProductList = ({ products }) => {
+  return (
+    <div className="productList">
+      {products.map((product) => (
+        <Product key={product.id} {...product} />
+      ))}
+    </div>
+  );
 };
+
+const Product = ({ fields }) => {
+  const { company, image, price } = fields;
+  const url = image.url || customImage;
+  return (
+    <div className="product">
+      <img src={url} alt="product image" className="product__image" />
+      <h3>{company || "Company Name"}</h3>
+      <h4>$ {price || 3.99}</h4>
+    </div>
+  );
+};
+
 export default MemoUseMemoUseCallBack;
 
 /* --- ONLY for TESTING Purpose React.memo() --- */
