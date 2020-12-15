@@ -10,7 +10,7 @@ const MemoUseMemoUseCallBack = () => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    console.log("useEffect() invoked !!!");
+    console.log("Parent useEffect()");
   }, [count]);
   return (
     <>
@@ -19,10 +19,26 @@ const MemoUseMemoUseCallBack = () => {
         click me
       </button>
       {/* <BigList products={products} /> */}
+      <TestReRender />
     </>
   );
 };
 
+// We
+const TestReRender = () => {
+  useEffect(() => {
+    console.log("Test | useEffect");
+  });
+  return (
+    <>
+      <h3>Child Component</h3>
+      <p>
+        No prop is passed to me. I want to check whether I will be re-rendered
+        when my Parent Component Re-renders
+      </p>
+    </>
+  );
+};
 const BigList = ({ products }) => {
   return (
     <section className="products">
