@@ -2,19 +2,23 @@ import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { useFetch } from "../../9-custom-hooks/final/2-useFetch";
 
 const url = "https://course-api.netlify.app/api/javascript-store-products";
-// every time props or state changes, component re-renders
+
+// every time props or state changes, component re-renders, the child inside the component also re-renders
 
 const MemoUseMemoUseCallBack = () => {
   const { products } = useFetch(url);
   const [count, setCount] = useState(0);
 
+  useEffect(() => {
+    console.log("useEffect() invoked !!!");
+  }, [count]);
   return (
     <>
       <h1>Count : {count}</h1>
       <button className="btn" onClick={() => setCount(count + 1)}>
         click me
       </button>
-      <BigList products={products} />
+      {/* <BigList products={products} /> */}
     </>
   );
 };
