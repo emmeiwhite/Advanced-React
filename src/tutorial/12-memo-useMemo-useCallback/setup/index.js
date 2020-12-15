@@ -4,6 +4,12 @@ import { useFetch } from "../../9-custom-hooks/final/2-useFetch";
 const url = "https://course-api.netlify.app/api/javascript-store-products";
 
 // every time props or state changes, component re-renders, the child inside the component also re-renders
+const testData = [
+  { id: 1, data: "data1" },
+  { id: 2, data: "data2" },
+  { id: 3, data: "data3" },
+  { id: 4, data: "data4" },
+];
 
 const MemoUseMemoUseCallBack = () => {
   const { products } = useFetch(url);
@@ -19,7 +25,7 @@ const MemoUseMemoUseCallBack = () => {
         click me
       </button>
       {/* <BigList products={products} /> */}
-      <TestReRender />
+      <TestReRender testData={testData} />
     </>
   );
 };
@@ -29,14 +35,8 @@ We see whenever the Parent Component MemoUseMemoUseCallBack re-renders, the chil
 Which in turn means that if TestReRender Component also has it's own child components in it those will also re-render
 --- */
 
-const testData = [
-  { id: 1, data: "data1" },
-  { id: 2, data: "data2" },
-  { id: 3, data: "data3" },
-  { id: 4, data: "data4" },
-];
-
-const TestReRender = () => {
+const TestReRender = React.memo(({ testData }) => {
+  // React.memo is a caching technique
   useEffect(() => {
     console.count("Test ReRendered| useEffect");
   });
@@ -53,7 +53,7 @@ const TestReRender = () => {
       ))}
     </>
   );
-};
+});
 
 const SubChild = () => {
   useEffect(() => {
