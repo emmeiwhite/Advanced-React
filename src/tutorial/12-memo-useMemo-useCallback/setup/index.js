@@ -12,30 +12,52 @@ const testData = [
 ];
 
 const MemoUseMemoUseCallBack = () => {
-  const { products } = useFetch(url);
+  const { products, loading, error } = useFetch(url);
   const [count, setCount] = useState(0);
 
   useEffect(() => {
     console.log("Parent useEffect()");
   }, [count]);
+
+  if (loading) {
+    return <h3>Loading ...</h3>;
+  }
+
+  if (error) {
+    return <h3>Error: No data available</h3>;
+  }
+
   return (
     <>
       <h1>Count : {count}</h1>
       <button className="btn" onClick={() => setCount(count + 1)}>
         click me
       </button>
-      {/* <BigList products={products} /> */}
-      <TestReRender testData={testData} />
+      <ProductList products={products} />
+      {/* <TestReRender testData={testData} /> */}
     </>
   );
 };
 
 /* --- 
 We see whenever the Parent Component MemoUseMemoUseCallBack re-renders, the child component TestReRender is also re-rendering.
-Which in turn means that if TestReRender Component also has it's own child components in it those will also re-render
+Which in turn means that if TestReRender Component also has it's own child components in it those will also re-render 
 --- */
 
-const TestReRender = React.memo(({ testData }) => {
+// Let's do our React.memo() on more time while creating small App
+const ProductList = ({ products }) => products.map((product) => <Product />);
+
+const Product = () => {
+  return <p>single product</p>;
+};
+export default MemoUseMemoUseCallBack;
+
+/* --- ONLY for TESTING Purpose React.memo() --- */
+/* --- CONCLUSION: We can clearly see that even if the new  props are not passed to the  <TestReRender /> Component on line-22, The component is still re-rendered along with it's Children components also. But we don't want this behavior in our Code. We'll do a Computer Science Technique call Memoizing in this case. 
+We'll use React.memo() and wrap our TestReRender Component definition in it
+---*/
+
+const TestReRender = ({ testData }) => {
   // React.memo is a caching technique. Until testData prop doesn't change, there will be no re-render of the TestReRender Component anymore. This really is an awesome technique but behind the scenes computer has to do additional computations to do Memoization
   useEffect(() => {
     console.count("Test ReRendered| useEffect");
@@ -53,11 +75,11 @@ const TestReRender = React.memo(({ testData }) => {
       ))}
     </>
   );
-});
+};
 
 const SubChild = () => {
   useEffect(() => {
-    console.log("SubChild Rendered | useEffect");
+    console.count("SubChild Rendered | useEffect");
   });
   return (
     <div>
@@ -65,35 +87,3 @@ const SubChild = () => {
     </div>
   );
 };
-
-/* --- CONCLUSION: We can clearly see that even if the new props are not passed to the  <TestReRender /> Component on line-22, The component is still re-rendered along with it's Children components also. But we don't want this behavior in our Code. We'll do a Computer Science Technique call Memoizing in this case. 
-We'll use React.memo() and wrap our TestReRender Component definition in it
----*/
-
-const BigList = ({ products }) => {
-  useEffect(() => {
-    console.log("Big List Rendered");
-  });
-  return (
-    <section className="products">
-      {products.map((product) => {
-        return <SingleProduct key={product.id} {...product}></SingleProduct>;
-      })}
-    </section>
-  );
-};
-
-const SingleProduct = ({ fields }) => {
-  let { name, price } = fields;
-  price = price / 100;
-  const image = fields.image[0].url;
-
-  return (
-    <article className="product">
-      <img src={image} alt={name} />
-      <h4>{name}</h4>
-      <p>${price}</p>
-    </article>
-  );
-};
-export default MemoUseMemoUseCallBack;
