@@ -4,7 +4,7 @@ export const useFetch = (url) => {
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(false);
-  console.log("useFetch() function");
+
   const getProducts = async () => {
     const response = await fetch(url);
     try {
@@ -19,6 +19,7 @@ export const useFetch = (url) => {
     } catch (error) {
       console.log(error);
       setError(true);
+      setLoading(false);
     }
   };
 
