@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import "./MemoUseCallBackUseMemo.css";
 
 const myProducts = [
@@ -6,6 +6,11 @@ const myProducts = [
   { id: 2, name: "desktop" },
   { id: 3, name: "cup" },
 ];
+
+const highestPricedProduct = (products) => {
+  console.log("Function Invoked !!!");
+  return 100;
+};
 
 export default function MemoUseCallBackUseMemo() {
   const [count, setCount] = useState(0);
@@ -24,11 +29,9 @@ export default function MemoUseCallBackUseMemo() {
     [products]
   );
 
-  const highestPricedProduct = (products) => {
-    console.log("Function Invoked !!!");
-    return 100;
-  };
-
+  const highestPriced = useMemo(() => highestPricedProduct(products), [
+    products,
+  ]);
   return (
     <div>
       <h4>Count:{count}</h4>
@@ -36,8 +39,8 @@ export default function MemoUseCallBackUseMemo() {
 
       <ChildComponent products={products} addProduct={addProduct} />
 
-      {/* Whenever this component re-renders the below function also gets invoked. We want this to invoke only when there is a change in the products being passed */}
-      <p>Highest Priced Product {highestPricedProduct(products)}</p>
+      {/* Whenever this component re-renders the below function also gets invoked. We want this to invoke only when there is a change in the products being passed. We have used useMemo now, which makes sure React memoizes the value of products and only when the products change the highestPricedProduct() function gets invoked */}
+      <p>Highest Priced Product {highestPriced}</p>
     </div>
   );
 }
