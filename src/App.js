@@ -21,6 +21,7 @@ import FetchExample from "./tutorial/9-custom-hooks/setup/1-fetch-example";
 import PropTypeIndex from "./tutorial/10-prop-types/setup/index";
 import ReactRouterSetup from "./tutorial/11-react-router/setup";
 import MemoUseMemoUseCallBack from "./tutorial/12-memo-useMemo-useCallback/setup/index";
+import MemoUseCallBackUseMemo from "./tutorial/13-memo-useCallback-revisit/MemoUseCallBackUseMemo";
 
 function App() {
   return (
@@ -64,8 +65,10 @@ function App() {
       <PropTypeIndex />
       
       <ReactRouterSetup />
-      */}
+     
       <MemoUseMemoUseCallBack />
+       */}
+      <MemoUseCallBackUseMemo />
     </div>
   );
 }
