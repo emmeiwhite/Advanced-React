@@ -2,14 +2,23 @@ import React, { useState, useEffect, useCallback, useMemo } from "react";
 import "./MemoUseCallBackUseMemo.css";
 
 const myProducts = [
-  { id: 1, name: "laptop" },
-  { id: 2, name: "desktop" },
-  { id: 3, name: "cup" },
+  { id: 1, name: "laptop", price: 123 },
+  { id: 2, name: "desktop", price: 45 },
+  { id: 3, name: "cup", price: 80 },
 ];
 
 const highestPricedProduct = (products) => {
-  console.log("Function Invoked !!!");
-  return 100;
+  console.log("Highest Priced Product Function Invoked");
+  const highestPrice = products.reduce((total, product) => {
+    const price = product.price;
+    if (price > total) {
+      total = price;
+    }
+
+    return total;
+  }, 0);
+
+  return highestPrice;
 };
 
 export default function MemoUseCallBackUseMemo() {
@@ -29,6 +38,7 @@ export default function MemoUseCallBackUseMemo() {
     [products]
   );
 
+  //   Memoizing value
   const highestPriced = useMemo(() => highestPricedProduct(products), [
     products,
   ]);
