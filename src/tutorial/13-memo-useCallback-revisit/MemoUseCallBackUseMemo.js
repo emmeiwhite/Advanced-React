@@ -11,6 +11,7 @@ export default function MemoUseCallBackUseMemo() {
   const [count, setCount] = useState(0);
   const [products, setProducts] = useState(myProducts);
 
+  /*--- with useCallback the callback function will only update when the products change---*/
   const addProduct = useCallback(
     (productName) => {
       const product = {
@@ -22,7 +23,11 @@ export default function MemoUseCallBackUseMemo() {
     },
     [products]
   );
-  /*--- with useCallback the callback function will only update when the products change---*/
+
+  const highestPricedProduct = (products) => {
+    console.log("Function Invoked !!!");
+    return 100;
+  };
 
   return (
     <div>
@@ -30,6 +35,9 @@ export default function MemoUseCallBackUseMemo() {
       <button onClick={() => setCount(count + 1)}>Increase Count</button>
 
       <ChildComponent products={products} addProduct={addProduct} />
+
+      {/* Whenever this component re-renders the below function also gets invoked. We want this to invoke only when there is a change in the products being passed */}
+      <p>Highest Priced Product {highestPricedProduct(products)}</p>
     </div>
   );
 }
